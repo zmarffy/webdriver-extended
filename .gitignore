@@ -1,0 +1,11 @@
+.DS_Store
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.vscode/
+.eggs
+__pycache__
+
+test.py
