@@ -90,7 +90,6 @@ class WebElementExtended(webdriver.remote.webelement.WebElement):
                 driver.execute_script(CHROME_CLEAR_DOWNLOADS_SCRIPT)
             finally:
                 driver.switch_to.window(original_window)
-                driver.save_screenshot("a.png")
                 try:
                     shutil.rmtree(download_dir_name)
                 except FileNotFoundError:
