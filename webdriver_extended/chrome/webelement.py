@@ -127,7 +127,6 @@ class WebElement(webdriver.remote.webelement.WebElement):
                             sleep(2)
                 # If the download finished
                 files = os.listdir(download_dir_name)
-                files.remove(".lock")
                 try:
                     file_name = files[0]
                     if not file_name.endswith(".crdownload"):
@@ -136,6 +135,7 @@ class WebElement(webdriver.remote.webelement.WebElement):
                     # Not there yet
                     pass
                 sleep(1)
+            files.remove(".lock")
             shutil.move(os.path.join(
                 download_dir_name, file_name), file_name)
         finally:
