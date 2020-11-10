@@ -1,5 +1,5 @@
-# `webdriver-chrome-extended`
+# `webdriver-extended`
 
-`webdriver-chrome-extended` is a `webdriver.Chrome` with more features.
+`webdriver-extended` is a `webdriver` with more features. Only Chrome is supported at the moment.
 
-Read the dosctrings. Actual docs to come later.
+Read the dosctrings of the code to understand the features. They include but are not limited to file downloading support, checking if headless, and opening a new tab.
