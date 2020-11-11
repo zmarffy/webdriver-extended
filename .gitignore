@@ -7,5 +7,3 @@ build/
 .vscode/
 .eggs
 __pycache__
-
-test.py
