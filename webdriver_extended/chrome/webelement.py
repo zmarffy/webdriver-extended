@@ -5,6 +5,7 @@ from pathlib import Path
 from time import sleep
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 LOGGER = logging.getLogger(__name__)
 
@@ -127,6 +128,7 @@ class WebElement(webdriver.remote.webelement.WebElement):
                             sleep(2)
                 # If the download finished
                 files = os.listdir(download_dir_name)
+                files.remove(".lock")
                 try:
                     file_name = files[0]
                     if not file_name.endswith(".crdownload"):
@@ -135,7 +137,6 @@ class WebElement(webdriver.remote.webelement.WebElement):
                     # Not there yet
                     pass
                 sleep(1)
-            files.remove(".lock")
             shutil.move(os.path.join(
                 download_dir_name, file_name), file_name)
         finally:
@@ -143,3 +144,20 @@ class WebElement(webdriver.remote.webelement.WebElement):
                 shutil.rmtree(download_dir_name)
             except FileNotFoundError:
                 pass
+
+    def javascript_click(self, soft=False):
+        """Use JavaScript to click the element
+
+        Args:
+            soft (bool, optional): If True, use onmouseup. Defaults to False.
+        """
+        driver = self.parent
+        driver.execute_script("arguments[0].click();", self) if not soft else driver.execute_script(
+            "arguments[0].onmouseup();", self)
+
+    def bruteforce_click(self):
+        """Try to click the element normally and if causes an exception, use JavaScript instead"""
+        try:
+            self.click()
+        except WebDriverException:
+            self.javascript_click()
