@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "webdriver_extended" }]
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4.0"
+python = "^3.7"
 selenium = ">=4.0.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -21,6 +21,22 @@ pytest = "^7.2.0"
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
 
 [tool.poe.tasks]
 clean = "rm -rf .pytest_cache dist ./**/__pycache__ test-report.xml"
