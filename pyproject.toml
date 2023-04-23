@@ -18,6 +18,7 @@ pytest = "^7.2.0"
 black = "^23.3.0"
 isort = "^5.12.0"
 flake8 = "^6.0.0"
+poethepoet = "^0.19.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
@@ -36,11 +37,41 @@ exclude = '''
     | buck-out
     | build
     | dist
+    | _build_files
 )/
 '''
 
+
+[tool.isort]
+profile = "black"
+skip = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "_build_files",
+]
+
 [tool.poe.tasks]
 clean = "rm -rf .pytest_cache dist ./**/__pycache__ test-report.xml"
+_black = "black --diff . --check"
+_isort = "isort . -c"
+check-format = ["_black", "_isort"]
+lint = "flake8"
 
 [tool.poetry-dynamic-versioning]
 enable = true
