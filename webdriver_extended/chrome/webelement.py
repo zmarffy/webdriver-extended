@@ -13,8 +13,7 @@ if typing.TYPE_CHECKING:
 
 LOGGER = logging.getLogger(__name__)
 
-GET_FILES_SCRIPT = """
-let downloads = [];
+GET_FILES_SCRIPT = """let downloads = [];
 document.querySelector('downloads-manager').shadowRoot.querySelectorAll('#mainContainer downloads-item').forEach((download) => {
     downloads.push({"file_name" : download.data.fileName, "progress" : download.data.percent, "state": download.data.state});
 });
@@ -24,17 +23,17 @@ CLEAR_DOWNLOADS_SCRIPT = "document.querySelector('downloads-manager').shadowRoot
 
 class WebElement(WebElement):
     def click_to_download(self, max_download_started_check_num: int = 30):
-        """Click on an element to download a file to the current directory
+        """Click on an element to download a file to the current directory.
 
         Args:
             max_download_started_check_num (int, optional): Max number of times to check if a download started. Defaults to 30.
 
         Raises:
-            FileNotFoundError: If the file never started downloading
+            FileNotFoundError: If the file never started downloading.
         """
         driver: "WebDriver" = self._parent
         if driver.headless:
-            LOGGER.info("Headless, so using click_to_download_2")
+            LOGGER.info("Browser is headless, so using click_to_download_2")
             # Use older, more error-prone method, as unfortunately this only loads a blank page if headless
             return self.click_to_download_2()
         original_window = driver.current_window_handle
@@ -85,13 +84,13 @@ class WebElement(WebElement):
                 pass
 
     def click_to_download_2(self, max_download_started_check_num: int = 30):
-        """Click on an element to download a file to the current directory. Uses a worse, more error-prone algorithm, as it expects only one item to be downloaded on a click
+        """Click on an element to download a file to the current directory. Uses a worse, more error-prone algorithm, as it expects only one item to be downloaded on a click.
 
         Args:
             max_download_started_check_num (int, optional): Max number of times to check if a download started. Defaults to 30.
 
         Raises:
-            FileNotFoundError: If the file never started downloading
+            FileNotFoundError: If the file never started downloading.
         """
         driver = self._parent
         download_dir_name = driver.download_dir_name
@@ -139,7 +138,7 @@ class WebElement(WebElement):
                 pass
 
     def javascript_click(self, soft=False):
-        """Use JavaScript to click the element
+        """Use JavaScript to click the element.
 
         Args:
             soft (bool, optional): If True, use onmouseup. Defaults to False.
@@ -150,7 +149,7 @@ class WebElement(WebElement):
         ) if not soft else driver.execute_script("arguments[0].onmouseup();", self)
 
     def bruteforce_click(self):
-        """Try to click the element normally, and if causes an exception, use JavaScript instead"""
+        """Try to click the element normally, and if causes an exception, use JavaScript instead."""
         try:
             self.click()
         except WebDriverException:

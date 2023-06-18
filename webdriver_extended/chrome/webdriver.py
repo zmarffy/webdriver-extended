@@ -12,7 +12,7 @@ IS_HEADLESS_SCRIPT = "return navigator.plugins.length == 0;"
 
 
 class WebDriver(webdriver.Chrome):
-    """webdriver.Chrome, but with more stuff"""
+    """webdriver.Chrome, but with more stuff."""
 
     _web_element_cls = WebElement
 
@@ -32,7 +32,7 @@ class WebDriver(webdriver.Chrome):
         return self.execute_script(IS_HEADLESS_SCRIPT)
 
     def new_tab(self, url: typing.Optional[str] = None, switch_to: bool = True):
-        """Open a new tab
+        """Open a new tab.
 
         Args:
             url (str, optional): The URL. If None, open a blank tab. Defaults to None.
